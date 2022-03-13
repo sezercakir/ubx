@@ -1,0 +1,21 @@
+
+
+{
+  "FILE_PATH"     : "/Users/sezer/CLionProjects/algo1/read_gnssMsg/",
+  "FILE_NAME"     : "COM3_210730_115228.ubx",
+  "GNSS_ID"       : 3,
+  "SIG_ID"        : 0,
+  "SV_ID"         : 1,
+  "SUBFRAME_ID"   : 1,
+  "PAGE_ID"       : 1,
+  "PRE_GPS"       : 139,
+  "PRE1_BEI"      : 181,
+  "PRE2_BEI"      : 98,
+  "MSG_CLS"       : 2,
+  "MSG_ID"        : 19,
+  "NUM_WRD"       : 10,
+  "PYL_LGTH"      : 48,
+  "SV_BGN"        : 1,
+  "SV_GPS_NUM"    : 32,
+  "SV_BEI_NUM"    : 63
+}
