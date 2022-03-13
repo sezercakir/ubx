@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libread_messages.a CMakeFiles/read_messages.dir/src/gnss.cpp.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libread_messages.a
