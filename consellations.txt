@@ -1,0 +1,14 @@
+
+
+GLONASS:
+
+- Payload kısmı 4 kelime.
+
+    İlk kelimede 1-4-27 şeklinde ve 4 bitlik kısım string type belirliyor.
+        1-2-3-4-5 karşılığı olan değerde Type'a karşılık geliyor. Eğer değer 6-8-10-12-14 ise type 6 oluyor, 7-9-11-13-15 ise type 7 olyor. Harici none oluyor.
+
+    Son kelimede son 8 bit frameno olarak kullanılıyor. Frameno'da aralık yok değerler neyse o şekilde.
+
+    String type kontrolünde önce 1-2-3-4-5 typelar kontrol sonu çıkılıyor. Type 6 veya 7 ise framelere bakılyıor. Frameler 1-2-3-4 ise normal şekilde devam ediliyor.
+
+- sigID ya 0 ya 1.
