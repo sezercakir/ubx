@@ -1,6 +1,6 @@
 /**
  * @file    : read_gnssMsg project file
- * @author  : Sezer Çakır
+ * @author  : Sezer Çakır, Mehmet Kaan Erol
  * @date    : 10 / March / 2022
  * @code    : utils_lib.c file
  * @details : 
