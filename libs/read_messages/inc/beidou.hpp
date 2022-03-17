@@ -1,6 +1,6 @@
 /**
  * @file    : Gnss_Msg project file
- * @author  : Sezer Çakır
+ * @author  : Sezer Çakır, Mehmet Kaan Erol
  * @date    : 13 / March / 2022
  * @code    : beidou.h file
  * @details : 
