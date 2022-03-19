@@ -14,7 +14,7 @@
 void Gnss::run_sfrbx(const settings_t& settings_in)
 {
     m_gps.read_sfrbx(settings_in);
-    //m_beidou.read_sfrbx(settings_in);
+    m_beidou.read_sfrbx(settings_in);
     //m_galileo.read_sfrbx(settings_in);
     //m_glonass.read_sfrbx(settings_in);
 }

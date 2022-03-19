@@ -16,6 +16,7 @@
 class Beidou : public Gnss_Base{
 public:
     void read_sfrbx(const settings_t&) override;
+    std::map<std::pair<std::string, std::string>, std::vector<UBXframe_bei_t> > m_beiframes{};      //!< keys = subframeId, pageId; value = payload words
 
 };
 

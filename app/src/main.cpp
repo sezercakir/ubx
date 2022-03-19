@@ -20,7 +20,6 @@ int main()
     /// main data structure
     settings_t json_data{};
     Gnss gnss{};
-    std::vector<UBXframe> ubxframes{};
     try
     {
         readjson(json_data);

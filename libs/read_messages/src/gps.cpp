@@ -10,8 +10,16 @@
 #include "gnss_base.hpp"
 #include "exception.hpp"
 
+/**
+ * @brief Paketler subframe ve page bilgisine göre
+ * dictionary yapısı olan std::map'te toplanır. Doğru şekilde
+ * toplandıktan sonra dosyaya TODO yazılacak.
+ * @param json
+ */
+
 void Gps::read_sfrbx (const settings_t& json)
 {
+
     std::ifstream fileStream(json.fpath+json.fname, std::ios::in | std::ios::binary);
     if (!fileStream.is_open()) throw Exception{"File Cannot Opened"};
 
@@ -43,26 +51,26 @@ void Gps::read_sfrbx (const settings_t& json)
 
                 w1.word         = ubx_gps.payload.word[0];
                 w2.word         = ubx_gps.payload.word[1];
+                /// TODO PAgeID'ler sıfır geliyor. GPS icd word pageid biti doğru bulunamadı.
                 int pageId      = static_cast<int>(GPS_Word3_t{ubx_gps.payload.word[2]}.pageid);
-                int subframe    = static_cast<int>(w2.subID);
 
+                switch (static_cast<int>(w2.subID))
+                {
+                    case 1:
+                        m_gpframes[std::make_pair("Subframe_1","Page_none")].push_back(ubx_gps);m_message_size++;
+                    case 2:
+                        m_gpframes[std::make_pair("Subframe_2","Page_none")].push_back(ubx_gps);m_message_size++;
+                    case 3:
+                        m_gpframes[std::make_pair("Subframe_3","Page_none")].push_back(ubx_gps);m_message_size++;
+                    case 4: /// TODO PageID 0 olmasını çöz.
+                        m_gpframes[std::make_pair("Subframe_4","Page_"+std::to_string(pageId))].push_back(ubx_gps);m_message_size++;
+                    case 5: /// TODO PageID 0 olmasını çöz.
+                        m_gpframes[std::make_pair("Subframe_5","Page_5"+std::to_string(pageId))].push_back(ubx_gps);m_message_size++;
+                        // default: std::cout << "GPS Subframe Cannot Find" << subframe << "\n";
+                }
 
                 if (calc_checksum(ubx_gps)){
 
-                    switch (subframe)
-                    {
-                        case 1:
-                            m_gpframes[std::make_pair("Subframe_1","Page_none")].push_back(ubx_gps);m_message_size++;
-                        case 2:
-                            m_gpframes[std::make_pair("Subframe_2","Page_none")].push_back(ubx_gps);m_message_size++;
-                        case 3:
-                            m_gpframes[std::make_pair("Subframe_3","Page_none")].push_back(ubx_gps);m_message_size++;
-                        case 4:
-                            m_gpframes[std::make_pair("Subframe_4","Page_"+std::to_string(pageId))].push_back(ubx_gps);m_message_size++;
-                        case 5:
-                            m_gpframes[std::make_pair("Subframe_5","Page_"+std::to_string(pageId))].push_back(ubx_gps);m_message_size++;
-                        default: std::cout << "GPS Subframe Cannot Find" << subframe << "\n";
-                    }
 
 
                     switch(ubx_gps.payload.reserved0){
@@ -88,7 +96,7 @@ void Gps::read_sfrbx (const settings_t& json)
         }
     }
     fileStream.close();
-    //std::cout << m_message_size << "\n";
+    //std::cout << "GPS Message Size " << m_message_size << "\n";
     //std::cout << m_gpframes[std::make_pair("Subframe_3","Page_none")].size() << "\n";
     //std::cout << m_gpframes[std::make_pair("Subframe_2","Page_none")].size() << "\n";
     //std::cout << m_gpframes[std::make_pair("Subframe_1","Page_none")].size() << "\n";

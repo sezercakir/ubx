@@ -127,8 +127,18 @@ typedef struct{
     Payload payload;
     uint8_t checksumA;
     uint8_t checksumB;
+} UBXframe_bei_t;
+
+/// TODO Glonass- Galileo için veri tipleri tanımlanacak
+typedef struct{
+    uint8_t preamble1;
+    uint8_t preamble2;
+    uint8_t messageClass;
+    uint8_t messageID;
+    uint16_t length;
+    Payload payload;
+    uint8_t checksumA;
+    uint8_t checksumB;
 } UBXframe;
-
-
 
 #endif /* DATA_TYPES_HPP */
