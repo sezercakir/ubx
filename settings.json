@@ -1,9 +1,12 @@
 
 
 {
-  "FILE_PATH"     : "/Users/sezer/CLionProjects/algo1/read_gnssMsg/",
+  "FILE_PATH"     : "/Users/sezer/Desktop/github/ubx/",
   "FILE_NAME"     : "COM3_210730_115228.ubx",
-  "GNSS_ID"       : 3,
+  "GNSS_ID_GPS"   : 0,
+  "GNSS_ID_BEI"   : 3,
+  "GNSS_ID_GAL"   : 2,
+  "GNSS_ID_GLO"   : 5,
   "SIG_ID"        : 0,
   "SV_ID"         : 1,
   "SUBFRAME_ID"   : 1,
@@ -13,7 +16,9 @@
   "PRE2_BEI"      : 98,
   "MSG_CLS"       : 2,
   "MSG_ID"        : 19,
-  "NUM_WRD"       : 10,
+  "NUM_WRD_GPS"   : 10,
+  "NUM_WRD_BEI"   : 10,
+  "NUM_WRD_GLO"   : 4,
   "PYL_LGTH"      : 48,
   "SV_BGN"        : 1,
   "SV_GPS_NUM"    : 32,

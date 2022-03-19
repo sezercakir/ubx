@@ -15,14 +15,19 @@
 #include "data_types.hpp"
 #include "exception.hpp"
 #include "utils_lib.hpp"
-#include "vector"
+#include <iostream>
 #include <map>
+#include <vector>
 
-class Constellations{
+class Gnss_Base{
+private:
+
 public:
-    Constellations() = default;
-    std::map<int, std::vector< UBXframe > > frames{};
-    virtual void read_gnss(const settings_t&) = 0;
+    Gnss_Base() = default;
+
+    virtual void read_sfrbx(const settings_t&) = 0;
+
     int m_message_size{};
 };
+
 #endif /* GNSS_BASE_HPP */

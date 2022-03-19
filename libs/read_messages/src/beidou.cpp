@@ -12,7 +12,7 @@
 #include "beidou.hpp"
 #include "gnss_base.hpp"
 
-void Beidou::read_gnss (const settings_t &json)
+void Beidou::read_sfrbx (const settings_t &json)
 {
     std::ifstream fileStream(json.fpath+json.fname, std::ios::in | std::ios::binary);
 
@@ -31,14 +31,14 @@ void Beidou::read_gnss (const settings_t &json)
         // UBX-RXM-SFRBX message check
         if (json.prebei == (ubx.preamble1) && json.prebei2 == ubx.preamble2 &&
             json.msgcls == (ubx.messageClass) && json.msgid == ubx.messageID &&
-            json.pyl_lgth == ubx.length){
+            json.pyl_lgth_bei == ubx.length){
 
             read_from_file(fileStream, ubx.payload);
             read_from_file(fileStream, ubx.checksumA);
             read_from_file(fileStream, ubx.checksumB);
 
             // Payload checker kontrol fonksiyonu koyulablir
-            if (json.gnss_id ==  ubx.payload.gnssId && (json.sv_bgn <= ubx.payload.svId  &&
+            if (json.gnss_id_bei ==  ubx.payload.gnssId && (json.sv_bgn <= ubx.payload.svId  &&
                                                         ubx.payload.svId <= json.sv_bei_num)){
                 /*
                  * calculate checksum if return true from calc_checksum than decode the
@@ -59,16 +59,12 @@ void Beidou::read_gnss (const settings_t &json)
 
                     switch(ubx.payload.reserved0){
                         case 0: /* BeiDou B1I|D1 */
-                            frames[0].push_back(ubx);
                             break;
                         case 1: /* BeiDou B1I|D2 */
-                            frames[1].push_back(ubx);
                             break;
                         case 2: /* BeiDou B2I|D1 */
-                            frames[2].push_back(ubx);
                             break;
                         case 3: /* BeiDou B2I|D2 */
-                            frames[3].push_back(ubx);
                             break;
                         default:     /* error */    break;
                     }

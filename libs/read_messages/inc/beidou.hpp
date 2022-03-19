@@ -10,10 +10,13 @@
 
 #ifndef BEIDOU_HPP
 #define BEIDOU_HPP
+
 #include "gnss_base.hpp"
 
-class Beidou : public  Constellations{
-    void read_gnss(const settings_t&) override;
+class Beidou : public Gnss_Base{
+public:
+    void read_sfrbx(const settings_t&) override;
+
 };
 
 

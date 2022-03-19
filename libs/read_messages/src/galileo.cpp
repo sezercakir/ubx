@@ -9,7 +9,7 @@
 
 #include "galileo.hpp"
 
-void Galileo::read_gnss (const settings_t &json)
+void Galileo::read_sfrbx (const settings_t &json)
 {
     std::ifstream fileStream(json.fpath+json.fname, std::ios::in | std::ios::binary);
 
@@ -28,14 +28,14 @@ void Galileo::read_gnss (const settings_t &json)
         // UBX-RXM-SFRBX message check
         if (json.prebei == (ubx.preamble1) && json.prebei2 == ubx.preamble2 &&
             json.msgcls == (ubx.messageClass) && json.msgid == ubx.messageID &&
-            json.pyl_lgth == ubx.length){
+            json.pyl_lgth_gal == ubx.length){
 
             read_from_file(fileStream, ubx.payload);
             read_from_file(fileStream, ubx.checksumA);
             read_from_file(fileStream, ubx.checksumB);
 
             // Payload checker kontrol fonksiyonu koyulablir
-            if (json.gnss_id ==  ubx.payload.gnssId && (json.sv_bgn <= ubx.payload.svId  &&
+            if (json.gnss_id_gal ==  ubx.payload.gnssId && (json.sv_bgn <= ubx.payload.svId  &&
                                                         ubx.payload.svId <= json.sv_bei_num)){
                 /*
                  * calculate checksum if return true from calc_checksum than decode the
@@ -54,22 +54,16 @@ void Galileo::read_gnss (const settings_t &json)
 
                     switch(ubx.payload.reserved0){
                         case 0: /* Galielo E1|C */
-                            frames[0].push_back(ubx);
                             break;
                         case 1: /* Galielo E1|B */
-                            frames[1].push_back(ubx);
                             break;
                         case 3: /* Galielo E5|AL */
-                            frames[3].push_back(ubx);
                             break;
                         case 4: /* Galielo E5|AQ */
-                            frames[4].push_back(ubx);
                             break;
                         case 5: /* Galielo E5|BL */
-                            frames[5].push_back(ubx);
                             break;
                         case 6: /* Galielo E5|BQ */
-                            frames[6].push_back(ubx);
                         default:     /* error */    break;
                     }
                 }

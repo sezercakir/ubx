@@ -8,4 +8,4 @@ add_subdirectory(App)
 add_subdirectory(Libs)
 
 # lots of warnings and all warnings as errors
-add_compile_options(-Wall -Wextra -pedantic-errors -Werror -Wconversion -Wsign-conversion -Wnon-c-typedef-for-linkage)
+add_compile_options(-Wall -Wextra -pedantic-errors -Werror -Wconversion -Wsign-conversion)

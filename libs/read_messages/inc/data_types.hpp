@@ -14,28 +14,38 @@
 #include <fstream>
 #include <iostream>
 
-#define JSON_PATH "/Users/sezer/CLionProjects/algo1/read_gnssMsg/settings.json"
+#define JSON_PATH "/Users/sezer/Desktop/github/ubx/settings.json"
 
 /****** JSON Data ***********/
 typedef struct
 {
     std::string fname{};
     std::string fpath{};
-    uint32_t gnss_id{};
+    uint32_t gnss_id_gps{};
+    uint32_t gnss_id_bei{};
+    uint32_t gnss_id_glo{};
+    uint32_t gnss_id_gal{};
     uint32_t sigid{};
     uint32_t svid{};
     uint32_t subframeid{};
     uint32_t pageid{};
-    uint32_t pregps      = 0x8B;
     uint32_t prebei{};
     uint32_t prebei2{};
-    uint32_t msgcls      = 2;
-    uint32_t msgid       = 19;
-    uint32_t num_wrd     = 10;
-    uint32_t pyl_lgth    = 8 + num_wrd*4;
-    uint32_t sv_bgn      = 1;
-    uint32_t sv_gps_num  = 32;
-    uint32_t sv_bei_num  = 63;
+    uint32_t msgcls{};
+    uint32_t msgid{};
+    uint32_t num_wrd_gps{};
+    uint32_t num_wrd_bei{};
+    uint32_t num_wrd_glo{};
+    uint32_t num_wrd_gal{};
+    uint32_t pyl_lgth_gps{};
+    uint32_t pyl_lgth_bei{};
+    uint32_t pyl_lgth_glo{};
+    uint32_t pyl_lgth_gal{};
+    uint32_t sv_bgn{};
+    uint32_t sv_gps_num{};
+    uint32_t sv_bei_num{};
+    uint32_t sv_glo_num{};
+    uint32_t sv_gal_num{};
 }settings_t;
 
 enum  class Constellation
@@ -46,6 +56,14 @@ enum  class Constellation
     Glonass
 };
 
+enum GPS_Subframes : int
+{
+    Subframe1   = 1,
+    Subframe2   = 2,
+    Subframe3   = 3,
+    Subframe4   = 4,
+    Subframe5   = 5
+};
 
 enum GNSS_ID : std::int8_t
 {
@@ -55,35 +73,7 @@ enum GNSS_ID : std::int8_t
     GLONASS     = 6
 };
 
-/************ GPS Words **********/
-typedef union
-{
-    struct
-    {
-        uint32_t parity     : 6;
-        uint32_t reserved   : 16;
-        uint32_t preamble   : 8;
-        uint32_t padding    : 2;
-    };
-    uint32_t word;
-} GPS_TLM_t ;
 
-
-typedef union
-{
-    struct
-    {
-        uint32_t parity       : 6;
-        uint32_t preserve_    : 1;
-        uint32_t preserve     : 1;
-        uint32_t subID        : 3;
-        uint32_t anti_spoof   : 1;
-        uint32_t alet_flag    : 1;
-        uint32_t TOW          : 17;
-        uint32_t padding      : 2;
-    };
-    uint32_t word;
-} GPS_HOW_t ;
 
 /************ Beidou Words **********/
 

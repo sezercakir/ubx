@@ -13,8 +13,9 @@
 
 #include "gnss_base.hpp"
 
-class Galileo : public Constellations{
-    void read_gnss(const settings_t&) override;
+class Galileo : public Gnss_Base{
+public:
+    void read_sfrbx(const settings_t&) override;
 };
 
 

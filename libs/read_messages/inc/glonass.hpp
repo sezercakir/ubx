@@ -13,8 +13,9 @@
 
 #include "gnss_base.hpp"
 
-class Glonass : public Constellations{
-    void read_gnss(const settings_t&) override;
+class Glonass : public Gnss_Base{
+public:
+    void read_sfrbx(const settings_t&) override;
 };
 
 #endif /* GLONASS_HPP */

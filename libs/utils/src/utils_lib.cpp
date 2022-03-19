@@ -20,37 +20,28 @@ void readjson(settings_t& json_data)
     json_data.fpath         = pt.get<std::string>("FILE_PATH");
     json_data.fname         = pt.get<std::string>("FILE_NAME");
     json_data.prebei        = pt.get<uint32_t>("PRE1_BEI");
-    json_data.prebei2        = pt.get<uint32_t>("PRE2_BEI");
-    json_data.gnss_id       = pt.get<uint32_t>("GNSS_ID");
+    json_data.prebei2       = pt.get<uint32_t>("PRE2_BEI");
+    json_data.gnss_id_gps   = pt.get<uint32_t>("GNSS_ID_GPS");
+    json_data.gnss_id_bei   = pt.get<uint32_t>("GNSS_ID_BEI");
+    json_data.gnss_id_glo   = pt.get<uint32_t>("GNSS_ID_GLO");
+    json_data.gnss_id_gal   = pt.get<uint32_t>("GNSS_ID_GAL");
     json_data.sigid         = pt.get<uint32_t>("SIG_ID");
     json_data.svid          = pt.get<uint32_t>("SV_ID");
     json_data.subframeid    = pt.get<uint32_t>("SUBFRAME_ID");
     json_data.pageid        = pt.get<uint32_t>("PAGE_ID");
     json_data.msgcls        = pt.get<uint32_t>("MSG_CLS");
     json_data.msgid         = pt.get<uint32_t>("MSG_ID");
-    json_data.num_wrd       = pt.get<uint32_t>("NUM_WRD");
-    json_data.pyl_lgth      = pt.get<uint32_t>("PYL_LGTH");
+    json_data.num_wrd_gps   = pt.get<uint32_t>("NUM_WRD_GPS");
+    json_data.num_wrd_bei   = pt.get<uint32_t>("NUM_WRD_BEI");
+    json_data.num_wrd_glo   = pt.get<uint32_t>("NUM_WRD_GLO");
+    json_data.pyl_lgth_gps  = 8 + json_data.num_wrd_gps * 4;
+    json_data.pyl_lgth_bei  = 8 + json_data.num_wrd_bei * 4;
+    json_data.pyl_lgth_glo  = 8 + json_data.num_wrd_glo * 4;
+    json_data.pyl_lgth_gal  = 8 + json_data.num_wrd_gal * 4;
     json_data.sv_bgn        = pt.get<uint32_t>("SV_BGN");
     json_data.sv_gps_num    = pt.get<uint32_t>("SV_GPS_NUM");
     json_data.sv_bei_num    = pt.get<uint32_t>("SV_BEI_NUM");
 }
 
 
-bool calc_checksum(UBXframe d){
-    uint8_t *data = &d.messageClass;
-    std::cout <<*data;
-    uint8_t CK_A = 0, CK_B = 0;
-    for(int i=0;i<sizeof(d) - 6;i++)
-    {
-        if (i == 4 || i == 5) continue;
-        //std::cout << std::hex << (uint) data[i] <<  " ";
-        CK_A = CK_A + data[i];
-        CK_B = CK_A + CK_B;
-    }
-
-    if (CK_A == d.checksumA && CK_B == d.checksumB){
-        return 1;
-    }
-    return 0;
-}
 
